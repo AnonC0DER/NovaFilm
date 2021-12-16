@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<title>{% block title %}Welcome to NovaFilm{% endblock title %}</title>
+
+{% if page == 'register' %}
+<!-- sign in -->
+<div class="sign section--full-bg" data-bg="{% static 'media/img/background.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="sign__content">
+                    <!-- registration form -->
+                    <form action="{% url 'register' %}" method="POST" class="sign__form">
+                        {% csrf_token %}
+                        <a href="{% url 'Home' %}" class="sign__logo">
+                            <img src="{% static 'media/img/LOGO.gif' %}" alt="">
+                        </a>
+                        
+                        {% for field in form %}
+                        <div class="sign__group">
+                            <label class="sign__text">{{field.label}}</label>
+                            {{field}}
+                        </div>
+                        {% endfor %}
+                    
+                        <button class="sign__btn" type="submit" value="Register">Sign up</button>
+
+                        <span class="sign__text">Already have an account? <a href="{% url 'login' %}">Sign in!</a></span>
+                    </form>
+                    <!-- registration form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end sign in -->
+
+{% else %}
+<!-- sign in -->
+<div class="sign section--full-bg" data-bg="{% static 'media/img/background.jpg' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="sign__content">
+                    <!-- authorization form -->
+                    <form action="{% url 'login' %}" method="POST" class="sign__form">
+                        {% csrf_token %}
+                        <a href="{% url 'Home' %}" class="sign__logo">
+                            <img src="{% static 'media/img/LOGO.gif' %}" alt="">
+                        </a>
+
+                        <div class="sign__group">
+                            <input type="text" class="sign__input" placeholder="Username" name="username">
+                        </div>
+
+                        <div class="sign__group">
+                            <input type="password" class="sign__input" placeholder="Password" name="password">
+                        </div>
+                        
+                        <button class="sign__btn" type="submit" value="Log In">Login</button>
+
+                        
+                        <span class="sign__text">Don't have an account? <a href="{% url 'register' %}">Sign up!</a></span>
+                    </form>
+                    <!-- end authorization form -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end sign in -->
+
+{% endif %}
+{% endblock content %}

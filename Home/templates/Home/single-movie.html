@@ -1,0 +1,220 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+	.form_title {
+		border-radius: 8px;
+		background-color: #131720;
+		color: beige;
+	}
+</style>
+
+<title>{% block title %} {{ movie.title }} - NovaFilm {% endblock title %}</title>
+
+	<!-- details -->
+	<section class="section section--head section--head-fixed section--gradient section--details-bg">
+		<div class="container">
+			<!-- article -->
+			<div class="article">
+				<img width="65%" height="65%" style="border-radius: 10px;" src="{{ movie.movie_page_poster.url }}"></img>
+				<div class="row">
+					<div class="col-12 col-xl-8">
+						<!-- trailer -->
+						{% if movie.trailer %}
+						<br>
+						<a href="{{movie.trailer}}" class="article__trailer open-video">
+							<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z" stroke-linecap="round" stroke-linejoin="round"></path><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0501 11.4669C13.3211 12.2529 11.3371 13.5829 10.3221 14.0099C10.1601 14.0779 9.74711 14.2219 9.65811 14.2239C9.46911 14.2299 9.28711 14.1239 9.19911 13.9539C9.16511 13.8879 9.06511 13.4569 9.03311 13.2649C8.93811 12.6809 8.88911 11.7739 8.89011 10.8619C8.88911 9.90489 8.94211 8.95489 9.04811 8.37689C9.07611 8.22089 9.15811 7.86189 9.18211 7.80389C9.22711 7.69589 9.30911 7.61089 9.40811 7.55789C9.48411 7.51689 9.57111 7.49489 9.65811 7.49789C9.74711 7.49989 10.1091 7.62689 10.2331 7.67589C11.2111 8.05589 13.2801 9.43389 14.0401 10.2439C14.1081 10.3169 14.2951 10.5129 14.3261 10.5529C14.3971 10.6429 14.4321 10.7519 14.4321 10.8619C14.4321 10.9639 14.4011 11.0679 14.3371 11.1549C14.3041 11.1999 14.1131 11.3999 14.0501 11.4669Z" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+							Trailer
+						</a>
+						{% endif %}
+						<!-- end trailer -->
+
+						<!-- article content -->
+						<div class="article__content">
+							<br>
+							<h1>{{movie.title}}</h1>
+
+							<ul class="list">
+								<li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> {{movie.IMDb_RATING}}</li>
+								{% for genre in movie.genre.all %}
+								<li><a href="{% url 'single-genre' genre.id %}">{{genre}}</a></li>
+								{% endfor %}
+								<li>{{movie.release_date}}</li>
+							</ul>
+
+							<p>{{movie.summary}}</p>
+							</div>
+						<!-- end article content -->
+					</div>
+											
+						<!-- download -->
+						<div class="article__actions article__actions--details">
+							<div class="article__download">
+								<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21,14a1,1,0,0,0-1,1v4a1,1,0,0,1-1,1H5a1,1,0,0,1-1-1V15a1,1,0,0,0-2,0v4a3,3,0,0,0,3,3H19a3,3,0,0,0,3-3V15A1,1,0,0,0,21,14Zm-9.71,1.71a1,1,0,0,0,.33.21.94.94,0,0,0,.76,0,1,1,0,0,0,.33-.21l4-4a1,1,0,0,0-1.42-1.42L13,12.59V3a1,1,0,0,0-2,0v9.59l-2.29-2.3a1,1,0,1,0-1.42,1.42Z"/></svg>
+								Download:
+								<a href="{{movie.download_link_480}}" download="{{movie.download_link_480}}">480p</a>
+								<a href="{{movie.download_link_720}}" download="{{movie.download_link_720}}">720p</a>
+								<a href="{{movie.download_link_1080}}" download="{{movie.download_link_1080}}">1080p</a>
+							</div>
+						</div>
+					</div>
+					<!-- end video player -->
+
+					<div class="col-12 col-xl-8">
+						<!-- categories -->
+						<div class="categories">
+							<h2 class="card__title">Director : <a href="{% url 'single-director' movie.director.id %}">{{ movie.director }}</a></h2>
+							<h3 class="categories__title">Genres</h3>
+							{% for genre in movie.genre.all %}
+							<a href="{% url 'single-genre' genre.id %}" class="categories__item">{{genre}}</a>
+							{% endfor %}
+						</div>
+						<!-- end categories -->
+					</div>
+				</div>
+				
+				<br>
+				<h6 class="card__title" style="font-family: Georgia, 'Times New Roman', Times, serif;">Page Views : {{view}}</h6>
+
+				<div class="row">
+					<div class="col-12 col-xl-8">
+						<!-- comments and reviews -->
+						<div class="comments">
+							<!-- tabs nav -->
+							<ul class="nav nav-tabs comments__title comments__title--tabs" id="comments__tabs" role="tablist">
+								<li class="nav-item">
+									<a class="nav-link active" data-toggle="tab" href="#tab-1" role="tab" aria-controls="tab-1" aria-selected="true">
+										<h4>Comments</h4>
+										<!-- <span>5</span> -->
+									</a>
+								</li>
+							</ul>
+							<!-- end tabs nav -->
+							
+							<!-- tabs -->
+							<div class="tab-content">
+								<!-- comments -->
+								<div class="tab-pane fade show active" id="tab-1" role="tabpanel">
+									<ul class="comments__list">
+										
+										{% for comment in comments_all.all %}
+										<li class="comments__item">
+											<div class="comments__autor">
+												<span class="comments__name">Name : {{ comment.name }}</span>
+											</div>
+											<p class="comments__text">Comment : {{ comment.body|linebreaksbr }}</p>
+										</li>
+										{% endfor %}
+										
+									</ul>
+									
+									<form action="{% url 'single-movie' movie.id %}" class="comments__form" method="POST">
+										{% csrf_token %}
+										{% for field in forms %}
+										<label style="color: beige;">{{ field.label }} :</label>
+										<div class="sign__group">
+											{{ field }}
+										</div>
+										{% endfor %}
+
+										<button type="submit" class="sign__btn">Send</button>
+									</form>
+
+								</div>
+								<!-- end comments -->
+
+						
+							</div>
+							<!-- end tabs -->		
+						</div>
+						<!-- end comments and reviews -->
+					</div>
+
+					<div class="col-12 col-xl-4">
+						<div class="sidebar sidebar--mt">
+							
+
+							<!-- Similar Movies -->
+							<div class="row row--grid">
+								<div class="col-12">
+									<h5 class="sidebar__title">Similar Movies</h5>
+								</div>
+								
+								{% for movie in similar|slice:":4" %}
+								<div class="col-6 col-sm-4 col-md-3 col-xl-6">
+									<div class="card">
+										<a href="{% url 'single-movie' movie.id %}" class="card__cover">
+											<img src="{{movie.poster.url}}" alt="">
+											<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="../../../../external.html?link=http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0501 11.4669C13.3211 12.2529 11.3371 13.5829 10.3221 14.0099C10.1601 14.0779 9.74711 14.2219 9.65811 14.2239C9.46911 14.2299 9.28711 14.1239 9.19911 13.9539C9.16511 13.8879 9.06511 13.4569 9.03311 13.2649C8.93811 12.6809 8.88911 11.7739 8.89011 10.8619C8.88911 9.90489 8.94211 8.95489 9.04811 8.37689C9.07611 8.22089 9.15811 7.86189 9.18211 7.80389C9.22711 7.69589 9.30911 7.61089 9.40811 7.55789C9.48411 7.51689 9.57111 7.49489 9.65811 7.49789C9.74711 7.49989 10.1091 7.62689 10.2331 7.67589C11.2111 8.05589 13.2801 9.43389 14.0401 10.2439C14.1081 10.3169 14.2951 10.5129 14.3261 10.5529C14.3971 10.6429 14.4321 10.7519 14.4321 10.8619C14.4321 10.9639 14.4011 11.0679 14.3371 11.1549C14.3041 11.1999 14.1131 11.3999 14.0501 11.4669Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+										</a>
+										<button class="card__add" type="button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M16,2H8A3,3,0,0,0,5,5V21a1,1,0,0,0,.5.87,1,1,0,0,0,1,0L12,18.69l5.5,3.18A1,1,0,0,0,18,22a1,1,0,0,0,.5-.13A1,1,0,0,0,19,21V5A3,3,0,0,0,16,2Zm1,17.27-4.5-2.6a1,1,0,0,0-1,0L7,19.27V5A1,1,0,0,1,8,4h8a1,1,0,0,1,1,1Z"/></svg></button>
+										<span class="card__rating"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> 8.3</span>
+										<h3 class="card__title"><a href="{% url 'single-movie' movie.id %}">{{movie.title}}</a></h3>
+										{% for genre in movie.genre.all %}
+										<ul class="card__list">
+											<li><a href="{% url 'single-genre' genre.id %}">{{genre}}</a></li>
+										</ul>
+										{% endfor %}
+										<ul class="card__info">
+											<li>Release Date : {{ movie.release_date }}</li>
+										</ul>
+									</div>
+								</div>
+								{% endfor %}
+							</div>
+							</div>
+							</div>
+							<!-- end Similar Movies -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end article -->
+		</div>
+	</section>
+	<!-- end details -->
+
+
+
+<!-- serial -->
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2 class="section__title">New Serials</h2>
+            </div>
+
+            <div class="col-12">
+                <div class="section__carousel-wrap">
+                    <div class="section__carousel owl-carousel" id="similar">
+                        {% for serial in serials %}
+                        <div class="card">
+                            <a href="{% url 'single-serial' serial.id %}" class="card__cover">
+                                <img src="{{serial.poster.url}}" alt="">
+                                <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M11 1C16.5228 1 21 5.47716 21 11C21 16.5228 16.5228 21 11 21C5.47716 21 1 16.5228 1 11C1 5.47716 5.47716 1 11 1Z" stroke-linecap="round" stroke-linejoin="round"/><path fill-rule="evenodd" clip-rule="evenodd" d="M14.0501 11.4669C13.3211 12.2529 11.3371 13.5829 10.3221 14.0099C10.1601 14.0779 9.74711 14.2219 9.65811 14.2239C9.46911 14.2299 9.28711 14.1239 9.19911 13.9539C9.16511 13.8879 9.06511 13.4569 9.03311 13.2649C8.93811 12.6809 8.88911 11.7739 8.89011 10.8619C8.88911 9.90489 8.94211 8.95489 9.04811 8.37689C9.07611 8.22089 9.15811 7.86189 9.18211 7.80389C9.22711 7.69589 9.30911 7.61089 9.40811 7.55789C9.48411 7.51689 9.57111 7.49489 9.65811 7.49789C9.74711 7.49989 10.1091 7.62689 10.2331 7.67589C11.2111 8.05589 13.2801 9.43389 14.0401 10.2439C14.1081 10.3169 14.2951 10.5129 14.3261 10.5529C14.3971 10.6429 14.4321 10.7519 14.4321 10.8619C14.4321 10.9639 14.4011 11.0679 14.3371 11.1549C14.3041 11.1999 14.1131 11.3999 14.0501 11.4669Z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                            </a>
+                            
+                            <span class="card__rating"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M22,9.67A1,1,0,0,0,21.14,9l-5.69-.83L12.9,3a1,1,0,0,0-1.8,0L8.55,8.16,2.86,9a1,1,0,0,0-.81.68,1,1,0,0,0,.25,1l4.13,4-1,5.68A1,1,0,0,0,6.9,21.44L12,18.77l5.1,2.67a.93.93,0,0,0,.46.12,1,1,0,0,0,.59-.19,1,1,0,0,0,.4-1l-1-5.68,4.13-4A1,1,0,0,0,22,9.67Zm-6.15,4a1,1,0,0,0-.29.88l.72,4.2-3.76-2a1.06,1.06,0,0,0-.94,0l-3.76,2,.72-4.2a1,1,0,0,0-.29-.88l-3-3,4.21-.61a1,1,0,0,0,.76-.55L12,5.7l1.88,3.82a1,1,0,0,0,.76.55l4.21.61Z"/></svg> {{serial.IMDb_RATING}}</span>
+                            <h3 class="card__title"><a href="{% url 'single-serial' serial.id %}">{{serial.Serial_name}}</a></h3>
+                            {% for genre in serial.genre.all %}
+                                <ul class="card__list">
+                                    <li><a href="{% url 'single-genre' genre.id %}">{{genre}}</a></li>
+                                </ul>
+                            {% endfor %}
+                            <ul class="card__info">
+                                <li>Release Date : {{ serial.release_date }}</li>
+                            </ul>
+                        </div>
+                        {% endfor %}
+					</div>
+
+                    <button class="section__nav section__nav--cards section__nav--prev" data-nav="#similar" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="../../../../external.html?link=http://www.w3.org/2000/svg"><path d="M1.25 7.72559L16.25 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M7.2998 1.70124L1.2498 7.72524L7.2998 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                    <button class="section__nav section__nav--cards section__nav--next" data-nav="#similar" type="button"><svg width="17" height="15" viewBox="0 0 17 15" fill="none" xmlns="../../../../external.html?link=http://www.w3.org/2000/svg"><path d="M15.75 7.72559L0.75 7.72559" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M9.7002 1.70124L15.7502 7.72524L9.7002 13.7502" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end serial -->
+
+{% endblock content %}

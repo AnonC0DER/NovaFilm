@@ -1,0 +1,90 @@
+/* REQUIRED STYLES */
+.slider-radio{position:relative;}.slider-radio input[type=radio]{display:none;}.slider-radio input[type=radio]:checked + label{position:relative !important;z-index:100 !important;}
+
+/* DEFAULT */
+.slider-radio {
+    display: inline-block;
+}
+
+.slider-radio label {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+/* Indicator Styles */
+.slider-radio input[type=radio]:checked + label,
+.slider-radio .sliding-piece {
+    background-color: #77abff;
+    transition-timing-function: cubic-bezier(.74,.14,.38,.99);
+}
+
+/* Base Theme */
+.slider-radio.base {
+    background-color: #eee;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.slider-radio.base input[type=radio]:checked + label,
+.slider-radio.base .sliding-piece {
+    background-color: #005D7A;
+    border: none;
+    color: white;
+}
+
+
+
+/* Elegant Theme */
+
+.slider-radio.elegant label {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.5;
+}
+
+.slider-radio.elegant input[type=radio]:checked + label,
+.slider-radio.elegant .sliding-piece {
+    color: white;
+    border-radius: 10px;
+    background-color: #f44242;
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Edgy Theme */
+
+.slider-radio.edgy label {
+    display: inline-block;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0.5;
+    filter: blur(1px);
+    transition: filter 0.3s;
+}
+
+.slider-radio.edgy input[type=radio]:checked + label {
+    filter: blur(0px);
+}
+.slider-radio.edgy input[type=radio]:checked + label,
+.slider-radio.edgy .sliding-piece {
+    border-radius: 10px;
+    background-color: transparent;
+    color: black;
+    opacity: 1;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+/* Vertical */
+
+.slider-radio.vertical label {
+    display: block !important;
+}
+
+
