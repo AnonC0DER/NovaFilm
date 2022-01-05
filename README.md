@@ -7,7 +7,7 @@ My Live Demo : http://novafilm.pythonanywhere.com/
 
 # Plans
 - [x] Login, Register and Profile system
-- [ ] REST APIs
+- [x] REST APIs
 
 # How to run?
 1. git clone https://github.com/AnonC0DER/NovaFilm.git<br>
